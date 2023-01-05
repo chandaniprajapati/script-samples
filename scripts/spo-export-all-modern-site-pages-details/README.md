@@ -2,11 +2,11 @@
 plugin: add-to-gallery
 ---
 
-# Export all site pages details from Site Pages library
+# Export all modern site pages details from Site Pages library
 
 ## Summary
 
-This sample will export the required site pages information to CSV.
+This sample will export the required modern site pages information to CSV.
 
 ## Implementation
 
