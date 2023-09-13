@@ -9,21 +9,28 @@
       ""
     ],
     "creationDateTime": "2021-10-27",
-    "updateDateTime": "2021-10-27",
+    "updateDateTime": "2023-05-08",
     "products": [
       "SharePoint"
     ],
     "metadata": [
       {
         "key": "PNP-POWERSHELL",
-        "value": "1.8.0"
+        "value": "2.1.1"
       }
     ],
     "categories": [
       "Configure",
       "Report"
     ],
-    "tags": [],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPListItem",
+      "Get-PnPPage",
+      "Get-PnPPageComponent",
+      "Get-PnPWeb"
+    ],
     "thumbnails": [
       {
         "type": "image",
@@ -35,7 +42,7 @@
     "authors": [
       {
         "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
+        "company": "",
         "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
         "name": "Paul Bullock"
       }

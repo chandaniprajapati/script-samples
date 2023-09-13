@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     <title>Flow run day summary | PnP Samples </title>
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
     <meta name="title" content="Flow run day summary | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
@@ -18,6 +18,7 @@
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
     <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
     <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
     <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
@@ -47,8 +48,25 @@
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
              <div class="github-mark">
-              <a href="https://github.com/pnp/script-samples">
-                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </a>
             </div>
             <div class="navbar-header">
@@ -90,72 +108,10 @@
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
-    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    <span class="article-clipboard__message done">Copied</span>
-</button>
-
-<pre><code class="lang-powershell">
-$m365Status = m365 status
-if ($m365Status -match &quot;Logged Out&quot;) {
-    m365 login
-}
-
-$environment = 'Default-2942bb31-1d49-4da6-8d3d-d0f9e1141234'
-$adaptiveCard = '{\&quot;type\&quot;:\&quot;AdaptiveCard\&quot;,\&quot;body\&quot;:[{\&quot;type\&quot;:\&quot;TextBlock\&quot;,\&quot;size\&quot;:\&quot;Medium\&quot;,\&quot;weight\&quot;:\&quot;Bolder\&quot;,\&quot;text\&quot;:\&quot;${title}\&quot;},{\&quot;type\&quot;:\&quot;TextBlock\&quot;,\&quot;text\&quot;:\&quot;${description}\&quot;,\&quot;wrap\&quot;:true}],\&quot;$schema\&quot;:\&quot;http://adaptivecards.io/schemas/adaptive-card.json\&quot;,\&quot;version\&quot;:\&quot;1.3\&quot;}'
-$webhook = 'https://contoso.webhook.office.com/webhookb2/1204eba2-061c-4442-9696-2a725cb2d094@2942bb31-1d49-4da6-8d3d-d0f9e1141486/IncomingWebhook/6e54c3958bde444e96fec9ecad356993/be11f523-2a4d-4eae-9d42-277410893c41'
-
-$flows = m365 flow list --environment $environment --output json
-$flows = $flows | ConvertFrom-Json
-$currentDayDate = Get-Date
-$previousDayDate = (Get-Date).AddDays(-1)
-
-$adaptiveCardDescription = &quot;&quot;
-foreach ($flow in $flows) 
-{
-    $flowRuns = m365 flow run list --environment $environment --flow $flow.name --output json
-    $flowRuns = $flowRuns | ConvertFrom-Json
-
-    $displayName = $flow.displayName
-    $id = $flow.name
-
-    $todayRuns = $flowRuns.Where({[DateTime]$_.properties.endTime -le $currentDayDate -and [DateTime]$_.properties.endTime -gt $previousDayDate})
-    
-    $todayRunsCount = 0
-    $todaySuccessRunsCount = 0
-    $todayFailedRunsCount = 0
-    if($todayRuns.Count -gt 0)
-    {
-        $todaySuccessRuns = $todayRuns.Where({$_.status -eq 'Succeeded'})
-        $todaySuccessRunsCount = $todaySuccessRuns.Count
-
-        $todayFailedRuns = $todayRuns.Where({$_.status -eq 'Failed'})
-        $todayFailedRunsCount = $todayFailedRuns.Count
-
-        $todayRunsCount = $todayRuns.Count
-    }
-
-    Write-Host &quot;$displayName -&gt; Runs: $todayRunsCount , Succeeded: $todaySuccessRunsCount , Failed: $todayFailedRunsCount&quot;
-    $adaptiveCardDescription = $adaptiveCardDescription + &quot;\r- [$displayName](https://us.flow.microsoft.com/manage/environments/$environment/flows/$id/details) -&gt; Runs: $todayRunsCount , Succeeded: $todaySuccessRunsCount , Failed: $todayFailedRunsCount&quot;
-}
-
-$today = Get-Date -Format &quot;MM/dd/yyyy&quot;
-$cardData = '{\&quot;title\&quot;: \&quot;Flows summary - ' + $today + '\&quot; ,\&quot;description\&quot;:\&quot;' + $adaptiveCardDescription + '\&quot;}'
-
-m365 adaptivecard send --url $webhook --card $adaptiveCard --cardData $cardData
-
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -261,14 +217,11 @@ Invoke-RestMethod @Params
 <tr>
 <td><a href="https://github.com/LeonArmston">Leon Armston</a></td>
 </tr>
-<tr>
-<td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
-</tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/flow-search-flows-for-connection" aria-hidden="true">
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-search-flows-for-connection" aria-hidden="true">
 </article>
           </div>
         </div>

@@ -7,7 +7,7 @@
     "title": "Empty the tenant recycle bin",
     "url": "https://pnp.github.io/script-samples/spo-empty-tenant-recyclebin/README.html",
     "creationDateTime": "2021-01-13",
-    "updateDateTime": "2022-01-24",
+    "updateDateTime": "2023-05-09",
     "shortDescription": "Script that removes sites from the tenant recycle bin",
     "longDescription": null,
     "products": [
@@ -18,23 +18,32 @@
     ],
     "tags": [
       "SharePoint Online",
-      "bash",
-      "Imported CLI Sample",
-      "m365 spo tenant recyclebinitem list",
-      "m365 spo tenant recyclebinitem remove",
       "Clear-PnPTenantRecycleBinItem",
       "Connect-PnPOnline",
-      "Get-PnPTenant",
-      "Get-PnPTenantRecycleBinItem"
+      "Get-PnPTenantRecycleBinItem",
+      "Disconnect-PnPOnline",
+      "m365 status",
+      "m365 login",
+      "m365 spo tenant recyclebinitem list",
+      "m365 spo tenant recyclebinitem remove",
+      "m365 logout",
+      "Connect-SPOService",
+      "Get-SPODeletedSite",
+      "Remove-SPODeletedSite",
+      "Disconnect-SPOService"
     ],
     "metadata": [
       {
-        "key": "CLI-FOR-MICROSOFT365",
-        "value": "3.7.0"
-      },
-      {
         "key": "PNP-POWERSHELL",
         "value": "1.9.0"
+      },
+      {
+          "key":"CLI-FOR-MICROSOFT365",
+          "value":"6.7.0"
+      },
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.23508.12000"
       }
     ],
     "thumbnails": [
@@ -52,29 +61,29 @@
         "company": "Intelogy",
         "pictureUrl": "https://avatars.githubusercontent.com/u/12968962?v=4",
         "name": "Leon Armston"
-      },
+      },    
       {
-        "gitHubAccount": "LauraKokkarinen",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/41330990?v=4",
-        "name": "Laura Kokkarinen",
-        "company": "Sulava"
+          "gitHubAccount": "ganesh-sanap",
+          "company": "",
+          "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+          "name": "Ganesh Sanap"
       }
     ],
     "references": [
       {
-        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
-        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
-        "url": "https://aka.ms/cli-m365"
-      },
-      {
-        "name": "Empty the tenant recycle bin",
-        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
-        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/empty-tenant-recyclebin/"
-      },
-      {
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+          "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+          "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+          "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
       }
     ]
   }
